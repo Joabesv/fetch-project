@@ -54,6 +54,15 @@ const getPost = async id => {
 
   loadingElement.classList.add('hide');
   postPage.classList.remove('hide');
+
+  const title = document.createElement('h1');
+  const body = document.createElement('p');
+
+  title.innerText = dataPost.title;
+  body.innerText = dataPost.body;
+
+  postContainer.appendChild(title);
+  postContainer.appendChild(body);
 };
 
 !postID ? getAllPosts() : getPost(postID);
