@@ -9,6 +9,10 @@ const postPage = document.querySelector('#post');
 const postContainer = document.querySelector('#post-container');
 const commentsContainer = document.querySelector('#comments-container');
 
+const commentForm = document.querySelector('#comment-form');
+const emailInput = document.querySelector('#email');
+const bodyInput = document.querySelector('#comment');
+
 // get id from URL
 const UrlSearchParams = new URLSearchParams(window.location.search);
 const postID = UrlSearchParams.get('id');
@@ -81,4 +85,20 @@ const getPost = async id => {
   dataComments.map(comment => mountComment(comment));
 };
 
-!postID ? getAllPosts() : getPost(postID);
+const commentEvent = event => {
+  event.preventDefault();
+
+  const comment = {
+    email: emailInput.value,
+    body: bodyInput.value,
+  };
+
+  const jsonComment = JSON.stringify(comment);
+};
+
+if (!postID) {
+  getAllPosts();
+} else {
+  getPost(postID);
+  commentForm.addEventListener('submit', e => commentEvent(e));
+}
