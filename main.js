@@ -5,6 +5,10 @@ const URL = 'https://jsonplaceholder.typicode.com/posts';
 const loadingElement = document.querySelector('#loading');
 const postsContainer = document.querySelector('#posts-container');
 
+// get id from URL
+const UrlSearchParams = new URLSearchParams(window.location.search);
+const postID = UrlSearchParams.get('id');
+
 const mountPost = data => {
   data.map(post => {
     const div = document.createElement('div');
@@ -27,14 +31,10 @@ const mountPost = data => {
 
 const getAllPosts = async () => {
   const response = await fetch(URL);
-  console.log(response);
-
   const data = await response.json();
-  console.log(data);
 
   loadingElement.classList.add('hide');
-
   mountPost(data);
 };
 
-getAllPosts();
+!postID ? getAllPosts() : console.log('Post not found', postID);
