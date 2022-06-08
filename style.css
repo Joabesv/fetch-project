@@ -1,6 +1,5 @@
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-
 }
 
 body {
@@ -11,8 +10,9 @@ body {
   display: none;
 }
 
-a, input[type="submit"] {
-  background-color: #007BFF;
+a,
+input[type='submit'] {
+  background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
@@ -23,6 +23,26 @@ a, input[type="submit"] {
   cursor: pointer;
 }
 
-a:hover,  input[type="submit"]:hover {
+a:hover,
+input[type='submit']:hover {
   opacity: 1;
+}
+
+form  {
+  width: 300px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .5em;
+}
+
+form label {
+  font-weight: bold;
+  margin-bottom: .3em;
+}
+
+form input, form text-area {
+  padding: 5px
 }
