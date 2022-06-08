@@ -5,6 +5,10 @@ const URL = 'https://jsonplaceholder.typicode.com/posts';
 const loadingElement = document.querySelector('#loading');
 const postsContainer = document.querySelector('#posts-container');
 
+const postPage = document.querySelector('#post');
+const postContainer = document.querySelector('#post-container');
+const commentsContainer = document.querySelector('#comments-container');
+
 // get id from URL
 const UrlSearchParams = new URLSearchParams(window.location.search);
 const postID = UrlSearchParams.get('id');
@@ -37,4 +41,19 @@ const getAllPosts = async () => {
   mountPost(data);
 };
 
-!postID ? getAllPosts() : console.log('Post not found', postID);
+const getPost = async id => {
+  // preciso executar dois requests ao mesmo tempo
+  const [responsePost, responseComments] = await Promise.all([
+    // URL a ser acessada
+    fetch(`${URL}/${id}`),
+    fetch(`${URL}/${id}/comments`),
+  ]);
+
+  const dataPost = await responsePost.json();
+  const dataComments = await responseComments.json();
+
+  loadingElement.classList.add('hide');
+  postPage.classList.remove('hide');
+};
+
+!postID ? getAllPosts() : getPost(postID);
