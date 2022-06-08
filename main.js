@@ -33,6 +33,20 @@ const mountPost = data => {
   });
 };
 
+const mountComment = comment => {
+  const div = document.createElement('div');
+  const email = document.createElement('h3');
+  const commentBody = document.createElement('p');
+
+  email.innerText = comment.email;
+  commentBody.innerText = comment.body;
+
+  div.appendChild(email);
+  div.appendChild(commentBody);
+
+  commentsContainer.appendChild(div);
+};
+
 const getAllPosts = async () => {
   const response = await fetch(URL);
   const data = await response.json();
@@ -63,6 +77,8 @@ const getPost = async id => {
 
   postContainer.appendChild(title);
   postContainer.appendChild(body);
+
+  dataComments.map(comment => mountComment(comment));
 };
 
 !postID ? getAllPosts() : getPost(postID);
