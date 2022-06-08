@@ -87,13 +87,24 @@ const getPost = async id => {
 
 const commentEvent = event => {
   event.preventDefault();
-
-  const comment = {
+  const comment = JSON.stringify({
     email: emailInput.value,
     body: bodyInput.value,
-  };
+  });
+  postComment(comment);
+};
 
-  const jsonComment = JSON.stringify(comment);
+const postComment = async comment => {
+  const response = await fetch(`${URL}/${postID}/comments`, {
+    method: 'POST',
+    body: comment,
+    headers: {
+      'content-type': 'application/json',
+    },
+  });
+  const data = await response.json();
+
+  mountComment(data);
 };
 
 if (!postID) {
